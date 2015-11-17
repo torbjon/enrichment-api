@@ -1,6 +1,6 @@
 # enrichment-api
 
-[![Enrichment API](/API-Documentation/enrichment-api@2x.png")](/API-Documentation/api.md)
+[![Enrichment API](/API-Documentation/enrichment-api@2x.png)](/API-Documentation/api.md)
 
 The ChartMogul Enrichment API allows users to enrich their customer information in ChartMogul with metadata. It enables [Segmentation](https://chartmogul.com/product/segmentation/) of your subscription metrics using customer metadata.
 
