@@ -9,7 +9,7 @@ Customer Attributes can be one or more of the following,
 - **Tags** on Customer Profiles
 - **Custom attributes** set via this API
 - **Stripe metadata** we pull from your Stripe account
-- **Clearbit's** publicly available data
+- **Clearbit's** data
 
 The API supports [Cross-origin Resource Sharing (CORS)](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) to allow you to consume it from a client-side application. However, be careful to never expose your API key in any client-side code.
 
@@ -28,8 +28,7 @@ The ChartMogul Enrichment API uses HTTP Basic Authentication. This means that wi
 **Where are my API credentials?**
 
 You can find your Account Token and Secret Key in the ChartMogul [Admin pages](https://app.chartmogul.com/#admin/api) (click the gear icon in the bottom left of your account - you need to be an admin on your account). Here you will see an API tab:
-![](https://raw.githubusercontent.com/chartmogul/metrics-api/master/API-Documentation/admin-api.jpg)
-_**Needs updated screenshot of UI**_
+![](admin-api.jpg)
 
 ## HTTP Response Codes
 
@@ -44,15 +43,15 @@ The following response codes may be returned by the endpoint:
 
 ## Endpoint Overview
 
-- `GET /customers` - Get a paginated customers list with basic information and attributes
-- `GET /customers/{customer_id}` - Get the basic information and attributes for customer with ChartMogul ID `{customer_id}`
-- `GET /customers/search` - Find information for a specific customer email
-- `GET /customers/{customer_id}/attributes` - Get all the attributes of customer with ChartMogul ID `{customer_id}`
-- `POST /customers/{customer_id}/attributes/tags` - Add tags for customer with ChartMogul ID `{customer_id}`
-- `DELETE /customers/{customer_id}/attributes/tags` - Delete tags from customer with ChartMogul ID `{customer_id}`
-- `POST /customers/{customer_id}/attributes/custom` - Add custom attributes to customer with ChartMogul ID `{customer_id}`
-- `DELETE /customers/{customer_id}/attributes/custom` - Delete custom attributes from customer with ChartMogul ID `{customer_id}`
-- `PUT /customers/{customer_id}/attributes/custom` - Modify custom attributes of customer with ChartMogul ID `{customer_id}`
+- [`GET /customers`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#get-customers) - Get a paginated customers list with basic information and attributes
+- [`GET /customers/{customer_id}`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#get-customerscustomer_id) - Get the basic information and attributes for customer with ChartMogul ID `{customer_id}`
+- [`GET /customers/search`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#get-customerssearch) - Find information for a specific customer email
+- [`GET /customers/{customer_id}/attributes`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#get-customerscustomer_idattributes) - Get all the attributes of customer with ChartMogul ID `{customer_id}`
+- [`POST /customers/{customer_id}/attributes/tags`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#post-customerscustomer_idattributestags) - Add tags for customer with ChartMogul ID `{customer_id}`
+- [`DELETE /customers/{customer_id}/attributes/tags`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#delete-customerscustomer_idattributestags) - Delete tags from customer with ChartMogul ID `{customer_id}`
+- [`POST /customers/{customer_id}/attributes/custom`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#post-customerscustomer_idattributescustom) - Add custom attributes to customer with ChartMogul ID `{customer_id}`
+- [`DELETE /customers/{customer_id}/attributes/custom`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#delete-customerscustomer_idattributescustom) - Delete custom attributes from customer with ChartMogul ID `{customer_id}`
+- [`PUT /customers/{customer_id}/attributes/custom`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#put-customerscustomer_idattributescustom) - Modify custom attributes of customer with ChartMogul ID `{customer_id}`
 
 **Note** - We will be transitioning to using slightly modified [`Version 1 UUIDs`] (https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_.28MAC_address_.26_date-time.29) as identifiers for future versions of our API. With this API, we return `UUIDs` for customers to help ease the transition in the future.
 
@@ -65,6 +64,8 @@ The following response codes may be returned by the endpoint:
 Returns an `Array` of `entries` containing basic information and attributes of customers, in JSON.
 - `page` (Integer, _optional_) - The page number for pagination of results. The default is page `1`
 - `per_page` (Integer, _optional_) - A limit on number of customers to return per page. The default and maximum value is `200`
+
+Results are returned in ascending order of the `customer-since` attribute.
 
 Example CURL Request
 ```CURL
@@ -347,7 +348,7 @@ Example Response
 ### POST /customers/{customer_id}/attributes/custom
 Accepts an `Array` of `JSON` objects as `custom`, in JSON. Each nested `JSON` object must contain values for the following keys.
 - `type` (String, _required_) - Denotes the data type of the custom attribute. Can be `String`, `Integer`, `Timestamp` or `Boolean`  
-- `key` (String, _required_) - Denotes the key of the custom attribute. Spaces and special characters not accepted.
+- `key` (String, _required_) - Denotes the key of the custom attribute. Accepts alphanumeric characters and underscores.
 - `value` (of data type `type`, _required_) - Denotes the value of the custom attribute.   
 
     `String` - Accepts alphanumeric characters  
