@@ -4,7 +4,7 @@
 
 The ChartMogul Enrichment API allows you to programmatically add, modify, and access customer metadata in your ChartMogul account. We refer to this metadata as Customer Attributes.
 
-Customer Attributes can be one or more of the following,  
+The main Customer Attributes accessible through this API are,  
 
 - **Tags** on Customer Profiles
 - **Custom attributes** set via this API
