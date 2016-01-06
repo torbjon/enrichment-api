@@ -48,8 +48,10 @@ The following response codes may be returned by the endpoint:
 - [`GET /customers/search`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#get-customerssearch) - Find information for a specific customer email
 - [`GET /customers/{customer_id}/attributes`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#get-customerscustomer_idattributes) - Get all the attributes of customer with ChartMogul ID `{customer_id}`
 - [`POST /customers/{customer_id}/attributes/tags`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#post-customerscustomer_idattributestags) - Add tags for customer with ChartMogul ID `{customer_id}`
+- [`POST /customers/attributes/tags`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#post-customersattributestags) - Add tags for customers who have the specified email
 - [`DELETE /customers/{customer_id}/attributes/tags`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#delete-customerscustomer_idattributestags) - Delete tags from customer with ChartMogul ID `{customer_id}`
 - [`POST /customers/{customer_id}/attributes/custom`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#post-customerscustomer_idattributescustom) - Add custom attributes to customer with ChartMogul ID `{customer_id}`
+- [`POST /customers/attributes/custom`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#post-customersattributescustom) - Add custom attributes to customers who have the specified email
 - [`DELETE /customers/{customer_id}/attributes/custom`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#delete-customerscustomer_idattributescustom) - Delete custom attributes from customer with ChartMogul ID `{customer_id}`
 - [`PUT /customers/{customer_id}/attributes/custom`](https://github.com/chartmogul/enrichment-api/blob/master/API-Documentation/api.md#put-customerscustomer_idattributescustom) - Modify custom attributes of customer with ChartMogul ID `{customer_id}`
 
@@ -328,6 +330,52 @@ Example Response
     "tags": ["engage", "unit loss", "discountable", "important", "Prio1"]
 }
 ```
+### POST /customers/attributes/tags
+Accepts an `email`, and an `Array` of `Strings` as `tags`, in JSON.
+Returns an Array `entries` with JSON output of the customers with the specified `email`, and their `tags`.
+
+Example CURL Request
+```CURL
+curl -X POST "https://api.chartmogul.com/v1/customers/attributes/tags" \
+  -d '{ "email": "adam@smith.com", \
+        "tags": ["important", "Prio1"] }' \
+  -H "Content-Type: application/json" \
+  -u {token}:{secret}
+```
+Example Response
+```JSON
+{
+    "entries": [
+                      { "id": 25647,
+                        "uuid": "cus_de305d54-75b4-431b-adb2-eb6b9e546012",
+                        "email": "adam@smith.com",
+                        "name": "Smith Company",
+                        "customer-since": "2015-06-09T13:16:00-04:00",
+                        "status": "Active",
+                        "attributes":  { "tags": ["important", "Prio1"],
+                                             "stripe": {"coupon": true},
+                                             "clearbit": {"name": "Acme"},
+                                             "custom": {"CAC": 213}
+                                        }
+                      },                       
+                      { "id": 13456,
+                        "uuid": "cus_fb305d54-75b4-431b-2334-eb6b9e540016",
+                        "email": "adam@smith.com",
+                        "name": "Adam",
+                        "customer-since": "2015-06-10T13:16:00-04:00",
+                        "status": "Active",
+                        "attributes":  { "tags": ["important", "Prio1"],
+                                             "stripe": {"coupon": false},
+                                             "clearbit": {"name": "Umbrella Corp"},
+                                             "custom": {"CAC": 32}
+                                        }
+                        }
+                    ],
+    "has_more": false,
+    "per_page": 200,
+    "page": 1
+}
+```
 ### DELETE /customers/{customer_id}/attributes/tags
 Accepts an `Array` of `Strings` as `tags`, in JSON.
 Returns a JSON output of `tags` of the customer with ChartMogul ID `{customer_id}`.
@@ -378,6 +426,60 @@ Example Response
                "channel": "Facebook",
                "age": 8
      }
+}
+```
+### POST /customers/attributes/custom
+Accepts an `email`, and an `Array` of `JSON` objects as `custom`, in JSON. Each nested `JSON` object must contain values for the following keys.
+- `type` (String, _required_) - Denotes the data type of the custom attribute. Can be `String`, `Integer`, `Timestamp` or `Boolean`  
+- `key` (String, _required_) - Denotes the key of the custom attribute. Accepts alphanumeric characters and underscores.
+- `value` (of data type `type`, _required_) - Denotes the value of the custom attribute.   
+
+    `String` - Accepts alphanumeric characters  
+    `Integer` - Accepts only numeric characters  
+    `Timestamp` - In the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format  
+    `Boolean` - Can be `TRUE`, `true`, `t`, `1`, `FALSE`, `false`, `f`, `0`  
+
+Returns an Array `entries` with JSON output of `custom` attributes of the customers with the specified `email`.
+
+Example CURL Request
+```CURL
+curl -X POST "https://api.chartmogul.com/v1/customers/attributes/custom" \
+  -d '{ "email": "adam@smith.com", \
+        "custom": [{"type": "String", "key": "channel", "value": "Facebook"}, \
+                           {"type": "Integer", "key": "age", "value": 8}] }' \
+  -H "Content-Type: application/json" \
+  -u {token}:{secret}
+```
+Example Response
+```JSON
+{
+    "entries": [
+                      { "id": 25647,
+                        "uuid": "cus_de305d54-75b4-431b-adb2-eb6b9e546012",
+                        "email": "adam@smith.com",
+                        "name": "Smith Company",
+                        "customer-since": "2015-06-09T13:16:00-04:00",
+                        "status": "Active",
+                        "attributes": {"tags": ["important", "Prio1"],
+                                             "stripe": {"coupon": true},
+                                             "clearbit": {"name": "Acme"},
+                                             "custom": {"channel": "Facebook", "age": 8}}
+                       },
+                      { "id": 13456,
+                        "uuid": "cus_fb305d54-75b4-431b-2334-eb6b9e540016",
+                        "email": "adam@smith.com",
+                        "name": "Adam",
+                        "customer-since": "2015-06-10T13:16:00-04:00",
+                        "status": "Active",
+                        "attributes": {"tags": ["important", "Prio1"],
+                                             "stripe": {"coupon": false},
+                                             "clearbit": {"name": "Umbrella Corp."},
+                                             "custom": {"channel": "Facebook", "age": 8}}
+                      }
+                    ],
+    "has_more": false,
+    "per_page": 200,
+    "page": 1
 }
 ```
 ### DELETE /customers/{customer_id}/attributes/custom
