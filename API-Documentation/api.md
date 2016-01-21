@@ -138,7 +138,7 @@ Example Response
 ```
 
 ### GET /customers/{customer_id}
-Returns basic information and attributes of customer with ID `{customer_id}`, in JSON. No Parameters supported
+Returns basic information and attributes of customer with ChartMogul ID `{customer_id}`, in JSON. No Parameters supported
 
 Example CURL Request
 ```CURL
