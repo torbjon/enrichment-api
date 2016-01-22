@@ -81,6 +81,7 @@ Example Response
     {
         "id": 25647,
         "uuid": "cus_de305d54-75b4-431b-adb2-eb6b9e546012",
+        "external_id": "34916129",
         "email": "bob@examplecompany.com",
         "name": "Example Company",
         "address": {
@@ -150,6 +151,7 @@ Example Response
 {
     "id": 25647,
     "uuid": "cus_de305d54-75b4-431b-adb2-eb6b9e546012",
+    "external_id": "34916129",
     "email": "bob@examplecompany.com",
     "name": "Example Company",
     "address": {
@@ -214,6 +216,7 @@ Example Response
     {
         "id": 25647,
         "uuid": "cus_de305d54-75b4-431b-adb2-eb6b9e546012",
+        "external_id": "34916129",
         "email": "bob@examplecompany.com",
         "name": "Example Company",
         "address": {
@@ -348,6 +351,7 @@ Example Response
     "entries": [
                       { "id": 25647,
                         "uuid": "cus_de305d54-75b4-431b-adb2-eb6b9e546012",
+                        "external_id": "40574176",
                         "email": "adam@smith.com",
                         "name": "Smith Company",
                         "customer-since": "2015-06-09T13:16:00-04:00",
@@ -360,6 +364,7 @@ Example Response
                       },                       
                       { "id": 13456,
                         "uuid": "cus_fb305d54-75b4-431b-2334-eb6b9e540016",
+                        "external_id": "58473129",
                         "email": "adam@smith.com",
                         "name": "Adam",
                         "customer-since": "2015-06-10T13:16:00-04:00",
@@ -456,6 +461,7 @@ Example Response
     "entries": [
                       { "id": 25647,
                         "uuid": "cus_de305d54-75b4-431b-adb2-eb6b9e546012",
+                        "external_id": "40574176",
                         "email": "adam@smith.com",
                         "name": "Smith Company",
                         "customer-since": "2015-06-09T13:16:00-04:00",
@@ -467,6 +473,7 @@ Example Response
                        },
                       { "id": 13456,
                         "uuid": "cus_fb305d54-75b4-431b-2334-eb6b9e540016",
+                        "external_id": "58473129",
                         "email": "adam@smith.com",
                         "name": "Adam",
                         "customer-since": "2015-06-10T13:16:00-04:00",
