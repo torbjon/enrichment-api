@@ -340,7 +340,7 @@ Returns an Array `entries` with JSON output of the customers with the specified 
 Example CURL Request
 ```CURL
 curl -X POST "https://api.chartmogul.com/v1/customers/attributes/tags" \
-  -d '{ "email": "adam@smith.com", \
+  -d '{ "email": "adam@smith.com",
         "tags": ["important", "Prio1"] }' \
   -H "Content-Type: application/json" \
   -u {token}:{secret}
@@ -414,7 +414,7 @@ Returns a JSON output of `custom` attributes of the customer with ChartMogul ID 
 Example CURL Request
 ```CURL
 curl -X POST "https://api.chartmogul.com/v1/customers/{customer_id}/attributes/custom" \
-  -d '{ "custom": [{"type": "String", "key": "channel", "value": "Facebook"}, \
+  -d '{ "custom": [{"type": "String", "key": "channel", "value": "Facebook"},
                            {"type": "Integer", "key": "age", "value": 8}] }' \
   -H "Content-Type: application/json" \
   -u {token}:{secret}
@@ -449,8 +449,8 @@ Returns an Array `entries` with JSON output of `custom` attributes of the custom
 Example CURL Request
 ```CURL
 curl -X POST "https://api.chartmogul.com/v1/customers/attributes/custom" \
-  -d '{ "email": "adam@smith.com", \
-        "custom": [{"type": "String", "key": "channel", "value": "Facebook"}, \
+  -d '{ "email": "adam@smith.com",
+        "custom": [{"type": "String", "key": "channel", "value": "Facebook"},
                            {"type": "Integer", "key": "age", "value": 8}] }' \
   -H "Content-Type: application/json" \
   -u {token}:{secret}
