@@ -15,6 +15,8 @@ The API supports [Cross-origin Resource Sharing (CORS)](http://en.wikipedia.org/
 
 All request and response bodies are formatted in [JSON](http://json.org/).
 
+You might also be interested in ChartMogul's [Metrics API](https://github.com/chartmogul/metrics-api/blob/master/API-Documentation/api.md).
+
 ## API Endpoint
 
 The endpoint for the ChartMogul Enrichment API is `https://api.chartmogul.com/v1/` .
